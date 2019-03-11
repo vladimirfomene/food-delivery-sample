@@ -1,23 +1,41 @@
 extends ../layouts/default
 
+block css
+	link(rel="stylesheet", href="/styles/style.css")
+
 block content
-	.container: .jumbotron
-		img(src='/images/logo.svg', width='160')
-		h1 Welcome
-		p This is your new <a href='http://keystonejs.com' target='_blank'>KeystoneJS</a> website.
-		p It includes the latest versions of
-			| <a href='http://getbootstrap.com/' target='_blank'>Bootstrap</a>
-			| and <a href='http://www.jquery.com/' target='_blank'>jQuery</a>.
-		p Visit the <a href='http://keystonejs.com/guide' target='_blank'>Getting Started</a> guide to learn how to customise it.
-		hr
-		if user && user.canAccessKeystone
-			p
-				a(href='/keystone').btn.btn-lg.btn-primary Open the Admin UI
-		else
-			p We have created a default Admin user for you with the email <strong>vladimirfomene@gmail.com</strong> and the password <strong>password</strong>.
-			p
-				a(href='/keystone/signin', style='margin-right: 10px').btn.btn-lg.btn-primary Sign in
-				|  to use the Admin UI.
-		hr
-		p Remember to <a href='https://github.com/keystonejs/keystone' target='_blank'>Star KeystoneJS on GitHub</a> and
-			| <a href='https://twitter.com/keystonejs' target='_blank'>follow @keystonejs</a> on twitter for updates.
+	div.content
+		nav(class="navbar navbar-default")
+			a(class="navbar-brand", href="#") Food Delivery App
+			button(id="btn-login", class="btn btn-primary btn-margin") Log In
+			button(id="btn-checkout", class="btn btn-primary btn-margin", data-toggle="modal", data-target="#checkoutModal") Checkout
+			button(id="btn-logout", class="btn btn-primary btn-margin") Log Out
+
+		<!-- Modal View -->
+		div(class="modal fade", id="checkoutModal", tabindex="-1", role="dialog", aria-labelledby="exampleModalLabel", aria-hidden="true")
+			div.modal-dialog(role="document")
+				div.modal-content
+					div.modal-header
+						h5(class="modal-title", id="exampleModalLabel") Order Summary
+						button(type="button", class="close", data-dismiss="modal", aria-label="Close")
+							span(aria-hidden="true") &times;
+					div.modal-body
+						table.table
+							thead
+								tr
+									th(scope="col") Meal
+									th(scope="col") Quantity
+							tbody(id="receipt-body")
+					div.modal-footer
+						button(type="button", class="btn btn-secondary", data-dismiss="modal") Close
+						button(type="button", class="btn btn-primary", id="btn-order") Place Order
+
+		<!-- Promotional message -->
+		p.promo-message Order Your Meal And Get It Delivered ASAP
+		main.container
+			<!-- menu view -->
+			div#menu-view
+
+block js
+	script(src="https://cdn.auth0.com/js/auth0/9.10/auth0.min.js")
+	script(src="/js/app.js")
