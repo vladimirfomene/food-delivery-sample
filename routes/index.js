@@ -21,6 +21,21 @@
 var keystone = require('keystone');
 var middleware = require('./middleware');
 var importRoutes = keystone.importer(__dirname);
+var jwt = require('express-jwt');
+var jwks = require('jwks-rsa');
+
+//Initialize Auth0 jwkcheck
+var jwtCheck = jwt({
+			secret: jwks.expressJwtSecret({
+					cache: true,
+					rateLimit: true,
+					jwksRequestsPerMinute: 5,
+					jwksUri: 'https://fomene.auth0.com/.well-known/jwks.json'
+		}),
+		audience: 'http://localhost:3000/api',
+		issuer: 'https://fomene.auth0.com/',
+		algorithms: ['RS256']
+});
 
 // Common Middleware
 keystone.pre('routes', middleware.initLocals);
@@ -29,6 +44,7 @@ keystone.pre('render', middleware.flashMessages);
 // Import Route Controllers
 var routes = {
 	views: importRoutes('./views'),
+	api: importRoutes('./api'),
 };
 
 // Setup Route Bindings
@@ -36,6 +52,14 @@ exports = module.exports = function (app) {
 	// Views
 	app.get('/', routes.views.index);
 
+	//Api
+	app.get('/api/meals', jwtCheck, routes.api.meal.all);
+	app.get('/api/meals/:id', jwtCheck, routes.api.meal.get);
+	app.post('/api/meals', jwtCheck, routes.api.meal.create);
+	app.put('/api/meals/:id', jwtCheck, routes.api.meal.update);
+	app.delete('/api/meals/:id', jwtCheck, routes.api.meal.delete);
+	app.post('/api/emails', jwtCheck, routes.api.email.create);
+	
 	// NOTE: To protect a route so that only admins can see it, use the requireUser middleware:
 	// app.get('/protected', middleware.requireUser, routes.views.protected);
 
