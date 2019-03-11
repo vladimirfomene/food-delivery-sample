@@ -1,0 +1,38 @@
+.btn-margin {
+	margin-top: 7px;
+	margin-right: 1%;
+	margin-bottom: 1%;
+}
+
+.panel-body h3 {
+	margin-top: 0;
+}
+
+nav {
+	display: flex;
+}
+
+#btn-login {
+	margin-left: auto;
+}
+
+body {
+	background-image: url("/images/bg-home.jpg");
+	background-size: cover;
+}
+
+.promo-message{
+	font-family: helvetica sans-serif;
+	font-weight: bold;
+	font-size: 90px;
+	text-transform: capitalize;
+	color: #ffffff;
+	width: 55%;
+	margin-left: 1%;
+}
+
+
+.col-md-4 {
+	margin-right: 5%;
+	text-align: justify;
+}
