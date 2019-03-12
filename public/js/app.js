@@ -2,17 +2,14 @@ const basket = {};
 const checkoutBtn = $('#btn-checkout');
 
 function addToBasket(meal){
+
 	if(meal in basket){
-		basket[meal] += 1
-		console.log(basket[meal]);
+		basket[meal] += 1;
 	}else{
 		basket[meal] = 1;
-		console.log(basket[meal]);
 	}
 
 	basket['count'] = 'count' in basket? basket['count'] + 1 : 1;
-
-
 	checkoutBtn.html("Checkout (" + basket['count'] + ")");
 }
 
@@ -69,7 +66,8 @@ $('document').ready(function() {
 				window.location.hash = '';
 				accessToken = authResult.accessToken;
 				userProfile = authResult.idTokenPayload;
-				//call api for meals if isAuthenticated
+
+				//call api for meals on authentication
 				getMenu();
 				loginBtn.css('display', 'none');
 				logoutBtn.css('display', 'inline-block');
@@ -104,7 +102,7 @@ $('document').ready(function() {
 			success: (data) => {
 				renderMeals(data);
 			},
-			error: (data) => {console.log(JSON.parse(data.responseText))}
+			error: (data) => {console.log(data);}
 		});
 	}
 

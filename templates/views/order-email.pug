@@ -9,10 +9,11 @@ html(lang="en")
 					th(scope="col") Meal
 					th(scope="col") Quantity
 			tbody(id="receipt-body")
-				each order in orders
-					tr
-						td=order
-						td=orders[order]
+				each order, key in orders
+					if key != 'count'
+						tr
+							td=key
+							td=order
 
 		h4 Sincerely,
 		h4 The Food Delivery App Team

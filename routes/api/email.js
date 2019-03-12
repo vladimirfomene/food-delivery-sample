@@ -21,7 +21,7 @@ exports.create = (req, res) => {
 		to: 'vladimirfomene@gmail.com',
 		from: {
 			name: 'Food Delivery App',
-			email: 'orders@food-delivery-app.com',
+			email: 'orders@food-delivery-sample.com',
 		},
 		subject: 'Urgent Food Order',
 	}, function (err, result) {

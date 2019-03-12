@@ -31,8 +31,13 @@ body {
 	margin-left: 1%;
 }
 
-
 .col-md-4 {
 	margin-right: 5%;
-	text-align: justify;
+	text-align: center;
+}
+
+.card-title {
+	text-transform: capitalize;
+	font-weight: bold;
+	
 }
