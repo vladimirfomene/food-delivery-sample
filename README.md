@@ -10,6 +10,7 @@
 * Clone this repository by executing `git clone https://github.com/vladimirfomene/food-delivery-sample.git` in your console.
 * Enter the project directory with `cd food-delivery-sample`.
 * Run `npm install` to install all the project's dependencies.
+* Add your email service provider's API keys and your Cloudinary URL to the .env file in the project's root directory.
 
 ## Running the app.
 
