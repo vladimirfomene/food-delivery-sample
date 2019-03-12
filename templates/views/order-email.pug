@@ -1,0 +1,18 @@
+doctype html
+html(lang="en")
+	head
+	body
+		h1 Hello #{ recipient.firstName } You have a new order to process. Be quick!
+		table(class="table")
+			thead
+				tr
+					th(scope="col") Meal
+					th(scope="col") Quantity
+			tbody(id="receipt-body")
+				each order in orders
+					tr
+						td=order
+						td=orders[order]
+
+		h4 Sincerely,
+		h4 The Food Delivery App Team

@@ -8,6 +8,7 @@ exports.create = (req, res) => {
 
 	new Email('order-email.pug', {
 		transport: 'mailgun',
+		root: 'templates/views/'
 	}).send({
 		recipient: {
 					firstName: 'Vladimir',
