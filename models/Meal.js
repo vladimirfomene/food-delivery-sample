@@ -14,7 +14,7 @@ var Types = keystone.Field.Types;
  Meal.add({
 	 title: {type: String, required: true},
 	 description: {type: String, required: true, default: ''},
-	 image_url: { type: Types.CloudinaryImage, required: true, default: ''}
+	 image_url: { type: String, required: true, default: ''}
  });
 
 
