@@ -19,6 +19,7 @@
   },
   "scripts": {
     "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
     "start": "node keystone.js"
   }
 }

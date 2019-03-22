@@ -10,9 +10,3 @@
  * Sample generated emails, based on the keys and methods below,
  * can be previewed at /keystone/test-email/{key}
  */
-
-var keystone = require('keystone');
-
-module.exports = {
-
-};

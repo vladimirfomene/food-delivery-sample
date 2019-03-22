@@ -1,19 +1,21 @@
+/* eslint-disable no-undef */
 const basket = {};
 const checkoutBtn = $('#btn-checkout');
 
-function addToBasket(meal){
+// eslint-disable-next-line no-unused-vars
+function addToBasket (meal) {
 
-	if(meal in basket){
+	if (meal in basket) {
 		basket[meal] += 1;
-	}else{
+	} else {
 		basket[meal] = 1;
 	}
 
-	basket['count'] = 'count' in basket? basket['count'] + 1 : 1;
-	checkoutBtn.html("Checkout (" + basket['count'] + ")");
+	basket.count = 'count' in basket ? basket.count + 1 : 1;
+	checkoutBtn.html('Checkout (' + basket.count + ')');
 }
 
-$('document').ready(function() {
+$('document').ready(function () {
 	const apiUrl = 'http://localhost:3000/api';
 
 	// create an Auth0 client
@@ -24,7 +26,7 @@ $('document').ready(function() {
 		audience: 'http://localhost:3000/api',
 		responseType: 'token id_token',
 		scope: 'openid profile read:messages',
-		leeway: 60
+		leeway: 60,
 	});
 
 	// select HTML elements to be manipulated
@@ -42,32 +44,30 @@ $('document').ready(function() {
 	checkoutBtn.click(addOrdersToReceipt);
 
 
-
 	let accessToken = null;
-	let userProfile = null;
 
 	handleAuthentication();
 	controlDisplay();
 
 	// function definitions
-	function logout() {
+	function logout () {
 		// Remove tokens and expiry time from browser
 		accessToken = null;
 		controlDisplay();
 	}
 
-	function isAuthenticated() {
+	function isAuthenticated () {
 		return accessToken != null;
 	}
 
-	function handleAuthentication() {
-		webAuth.parseHash(function(err, authResult) {
+	function handleAuthentication () {
+		webAuth.parseHash(function (err, authResult) {
 			if (authResult && authResult.accessToken) {
 				window.location.hash = '';
 				accessToken = authResult.accessToken;
 				userProfile = authResult.idTokenPayload;
 
-				//call api for meals on authentication
+				// call api for meals on authentication
 				getMenu();
 				loginBtn.css('display', 'none');
 				logoutBtn.css('display', 'inline-block');
@@ -82,7 +82,7 @@ $('document').ready(function() {
 		});
 	}
 
-	function setupUrlAndReqheaders(endpoint, secured){
+	function setupUrlAndReqheaders (endpoint, secured) {
 		const url = apiUrl + endpoint;
 
 		let headers;
@@ -90,11 +90,11 @@ $('document').ready(function() {
 			headers = { Authorization: 'Bearer ' + accessToken };
 		}
 
-		return {url, headers};
+		return { url, headers };
 	}
 
-	function getMenu() {
-		const {url, headers} = setupUrlAndReqheaders('/meals', true)
+	function getMenu () {
+		const { url, headers } = setupUrlAndReqheaders('/meals', true);
 		$.ajax({
 			type: 'GET',
 			url: url,
@@ -102,41 +102,42 @@ $('document').ready(function() {
 			success: (data) => {
 				renderMeals(data);
 			},
-			error: (data) => {console.log(data);}
+			error: (data) => { console.log(data); },
 		});
 	}
 
-	function placeOrder(){
-		const {url, headers} = setupUrlAndReqheaders('/emails', true)
+	function placeOrder () {
+		const { url, headers } = setupUrlAndReqheaders('/emails', true);
 
 		$.ajax({
 			type: 'POST',
 			url: url,
 			data: {
-				orders: basket
+				orders: basket,
 			},
 			headers: headers,
 			success: (data) => {
-				console.log("Your email was sent successfully");
+				console.log('Your email was sent successfully');
 			},
-			error: (data) => {console.log(data)}
+			error: (data) => { console.log(data); },
 		});
 	}
 
 
-	function renderMeals(meals){
+	function renderMeals (meals) {
 		var mealContainer = $('#menu-view');
-		for(key in meals){
-			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'+
-				meals[key].image_url.url + '" class="card-img-top" alt="'+ meals[key].title +
-				'"><div class="card-body"><h5 class="card-title">'
-				+ meals[key].title + '</h5><p class="card-text">' +
-				meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
+		// eslint-disable-next-line guard-for-in
+		for (key in meals) {
+			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'
+				+ meals[key].image_url.url + '" class="card-img-top" alt="' + meals[key].title
+				+ '"><div class="card-body"><h5 class="card-title">'
+				+ meals[key].title + '</h5><p class="card-text">'
+				+ meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
 		}
 	}
 
 
-	function controlDisplay() {
+	function controlDisplay () {
 		if (isAuthenticated()) {
 			loginBtn.css('display', 'none');
 			logoutBtn.css('display', 'inline-block');
@@ -155,11 +156,11 @@ $('document').ready(function() {
 		}
 	}
 
-	function addOrdersToReceipt(){
+	function addOrdersToReceipt () {
 		var receiptBody = $('#receipt-body');
 		receiptBody.empty();
-		for(meal in basket){
-			if(meal != 'count') receiptBody.append('<tr><td>' + meal + '</td><td>' + basket[meal] + '</td></tr>');
+		for (meal in basket) {
+			if (meal !== 'count') receiptBody.append('<tr><td>' + meal + '</td><td>' + basket[meal] + '</td></tr>');
 		}
 	}
 

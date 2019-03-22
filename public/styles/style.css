@@ -21,7 +21,7 @@ body {
 	background-size: cover;
 }
 
-.promo-message{
+.promo-message {
 	font-family: helvetica sans-serif;
 	font-weight: bold;
 	font-size: 90px;
@@ -39,5 +39,4 @@ body {
 .card-title {
 	text-transform: capitalize;
 	font-weight: bold;
-	
 }
