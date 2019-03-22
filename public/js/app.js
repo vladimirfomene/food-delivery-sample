@@ -126,13 +126,13 @@ $('document').ready(function () {
 
 	function renderMeals (meals) {
 		var mealContainer = $('#menu-view');
-		// eslint-disable-next-line guard-for-in
-		for (key in meals) {
-			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'
-				+ meals[key].image_url.url + '" class="card-img-top" alt="' + meals[key].title
-				+ '"><div class="card-body"><h5 class="card-title">'
-				+ meals[key].title + '</h5><p class="card-text">'
-				+ meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
+
+		for(key in meals){
+			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'+
+				meals[key].image_url + '" class="card-img-top" alt="'+ meals[key].title +
+				'"><div class="card-body"><h5 class="card-title">'
+				+ meals[key].title + '</h5><p class="card-text">' +
+				meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
 		}
 	}
 
