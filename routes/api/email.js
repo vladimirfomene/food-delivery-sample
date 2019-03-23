@@ -11,8 +11,8 @@ exports.create = (req, res) => {
 	}).send(
 		{
 			recipient: {
-				firstName: 'Vladimir',
-				lastName: 'Fomene',
+				name: req.body.name,
+				email: req.body.email,
 			},
 			orders: req.body.orders,
 		},

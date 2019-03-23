@@ -25,7 +25,7 @@ $('document').ready(function () {
 		redirectUri: location.href,
 		audience: 'http://localhost:3000/api',
 		responseType: 'token id_token',
-		scope: 'openid profile read:messages',
+		scope: 'openid profile email',
 		leeway: 60,
 	});
 
@@ -46,6 +46,7 @@ $('document').ready(function () {
 
 
 	let accessToken = null;
+	let userProfile = null;
 
 	handleAuthentication();
 	controlDisplay();
@@ -54,6 +55,7 @@ $('document').ready(function () {
 	function logout () {
 		// Remove tokens and expiry time from browser
 		accessToken = null;
+		userProfile = null;
 		controlDisplay();
 	}
 
@@ -115,6 +117,8 @@ $('document').ready(function () {
 			url: url,
 			data: {
 				orders: basket,
+				email: userProfile.email,
+				name: userProfile.name,
 			},
 			headers: headers,
 			success: (data) => {
