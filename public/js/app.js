@@ -36,6 +36,7 @@ $('document').ready(function () {
 	const promoView = $('.promo-message');
 	const bodyView = $('body');
 	const mainContainer = $('.container');
+	const modalView = $('#checkoutModal');
 
 	// add listeners to buttons
 	loginBtn.click(() => webAuth.authorize());
@@ -117,22 +118,40 @@ $('document').ready(function () {
 			},
 			headers: headers,
 			success: (data) => {
-				console.log('Your email was sent successfully');
+				var successView = $('#alert-success');
+				successView.css('display', 'block');
+				successView.text('Your email was sent successfully!');
+				setTimeout(() => {
+					successView.css('display', 'none');
+					successView.text('');
+				}, 30000);
 			},
-			error: (data) => { console.log(data); },
+			error: (data) => {
+				var errorView = $('#alert-danger');
+				errorView.css('display', 'block');
+				errorView.text('Your email was not sent.');
+				setTimeout(() => {
+					errorView.css('display', 'none');
+					errorView.text('');
+				}, 30000);
+			},
 		});
+
+		// Close checkout modal on order btn is clicked.
+		modalView.modal('hide');
 	}
 
 
 	function renderMeals (meals) {
 		var mealContainer = $('#menu-view');
 
-		for(key in meals){
-			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'+
-				meals[key].image_url + '" class="card-img-top" alt="'+ meals[key].title +
-				'"><div class="card-body"><h5 class="card-title">'
-				+ meals[key].title + '</h5><p class="card-text">' +
-				meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
+		// eslint-disable-next-line guard-for-in
+		for (key in meals) {
+			mealContainer.append('<div class="card col-md-4" style="width: 30rem;"><img src="'
+				+ meals[key].image_url + '" class="card-img-top" alt="' + meals[key].title
+				+ '"><div class="card-body"><h5 class="card-title">'
+				+ meals[key].title + '</h5><p class="card-text">'
+				+ meals[key].description + '</p><button onclick="addToBasket(\'' + meals[key].title + '\')" class="btn btn-primary">Order</button></div></div>');
 		}
 	}
 

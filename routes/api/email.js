@@ -29,8 +29,10 @@ exports.create = (req, res) => {
 		function (err, result) {
 			if (err) {
 				console.error('🤕 Mailgun test failed with error:\n', err);
+				return res.status(500).json(err);
 			} else {
 				console.log('📬 Successfully sent Mailgun test with result:\n', result);
+				return res.status(200).json(result);
 			}
 		}
 	);
