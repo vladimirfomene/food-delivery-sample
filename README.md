@@ -11,9 +11,9 @@
 * Clone this repository by executing `git clone https://github.com/vladimirfomene/food-delivery-sample.git` in your console.
 * Enter the project directory with `cd food-delivery-sample`.
 * Go to your terminal and start your Mongo database by executing the following command:
-  ** On windows: `net start MongoDB`
-  ** With OS X: `brew services start mongodb-community@<YOUR-VERSION-NUMBER>`, replace the text in angle brackets.
-  ** On Linux: `sudo service mongod start`
+    ** On windows: `net start MongoDB`
+    ** With OS X: `brew services start mongodb-community@<YOUR-VERSION-NUMBER>`, replace the text in angle brackets.
+    ** On Linux: `sudo service mongod start`
 * Run `npm install` to install all the project's dependencies.
 * Add your email service provider's API keys and your Cloudinary URL to the .env file in the project's root directory.
 
